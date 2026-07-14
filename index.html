@@ -432,6 +432,11 @@
 
         footer { background: var(--primary-dark); color: #94a3b8; text-align: center; padding: 20px 16px; font-size: 11px; border-top: 4px solid var(--accent); width: 100%; }
 
+        /* AREA STRUKTUR STRIP PRINT (TERSEMBUNYI SAAT NORMAL DI LAYAR) */
+        #print-only-area {
+            display: none;
+        }
+
         /* ==========================================================================
            RESPONSIVE MEDIA QUERIES (ADAPTASI TABLET & PC)
            ========================================================================== */
@@ -470,15 +475,40 @@
             .activity-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
             .activity-img { height: 180px; }
             
-            /* Form Mutabaah & Log berdampingan di PC */
             .interactive-grid.core-layout { grid-template-columns: 4fr 8fr; gap: 24px; }
-            /* Panel Bawah dibagi 3 kolom di PC */
             .interactive-grid.utility-layout { grid-template-columns: repeat(3, 1fr); gap: 20px; }
             
             .panel-box { padding: 26px; }
             .log-table { font-size: 13px; }
             .slogan-banner { padding: 45px 20px; }
             .slogan-banner h2 { font-size: 30px; }
+        }
+
+        /* ==========================================================================
+           ENGINE PRINT CSS MEDIA (SANGAT AMAN UNTUK MOBILE & ACODE)
+           ========================================================================== */
+        @media print {
+            body * {
+                display: none !important;
+            }
+            #print-only-area, #print-only-area * {
+                display: block !important;
+            }
+            #print-only-area {
+                font-family: 'Arial', sans-serif !important;
+                padding: 10px;
+                color: #0f172a !important;
+                width: 100% !important;
+            }
+            .p-header { text-align: center; border-bottom: 2px solid #0D5C3A; padding-bottom: 10px; margin-bottom: 20px; }
+            .p-header h2 { margin: 0; color: #0D5C3A; font-size: 20px; font-weight: bold; }
+            .p-table { width: 100% !important; border-collapse: collapse !important; margin-top: 15px; font-size: 13px; display: table !important; }
+            .p-table tr { display: table-row !important; }
+            .p-table th, .p-table td { border: 1px solid rgba(13, 92, 58, 0.3) !important; padding: 10px !important; text-align: left !important; display: table-cell !important; }
+            .p-table th { background-color: #f4f7f5 !important; color: #0D5C3A !important; font-weight: 700; }
+            .p-yes { color: #065f46 !important; font-weight: 700; }
+            .p-no { color: #991b1b !important; font-weight: 700; }
+            .p-footer { margin-top: 30px; text-align: center; font-size: 11px; color: #475569; }
         }
     </style>
 </head>
@@ -495,13 +525,12 @@
     <header>
         <div class="nav-wrapper">
             <div class="brand">
-    <!-- Menggunakan logo.jpg buatanmu sendiri -->
-    <img src="logo.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); flex-shrink: 0;" alt="Logo ROHIS">
-    <div class="brand-info" style="margin-left: 10px;">
-        <h1>ROHIS SMK YATPI</h1>
-        <p>GODONG - JAWA TENGAH</p>
-    </div>
-</div>
+                <img src="logo.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); flex-shrink: 0;" alt="Logo ROHIS">
+                <div class="brand-info" style="margin-left: 10px;">
+                    <h1>ROHIS SMK YATPI</h1>
+                    <p>GODONG - JAWA TENGAH</p>
+                </div>
+            </div>
             <button class="theme-toggle" onclick="toggleVisionMode()"><i class="fa-solid fa-moon" id="v-icon"></i></button>
         </div>
     </header>
@@ -621,7 +650,7 @@
                     <h4 style="margin: 0;"><i class="fa-solid fa-server"></i> Log Database</h4>
                     <div style="display: flex; gap: 6px;">
                         <button class="btn-secondary" style="background:#dc2626;" onclick="clearAllLogs()"><i class="fa-solid fa-trash-can"></i> Hapus Semua</button>
-                        <button class="btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> PDF</button>
+                        <button class="btn-secondary" onclick="printLatestLog()"><i class="fa-solid fa-print"></i> PDF</button>
                     </div>
                 </div>
                 <div class="table-container">
@@ -643,7 +672,7 @@
             </div>
         </div>
 
-        <!-- MULTI UTILITY: CELENGAN INFAQ + KALKULATOR ZAKAT + KOTAK ASPIRASI -->
+        <!-- MULTI UTILITY -->
         <div class="interactive-grid utility-layout">
             <div class="panel-box">
                 <h4><i class="fa-solid fa-wallet"></i> Celengan Infaq Digital</h4>
@@ -683,7 +712,7 @@
             </div>
         </div>
 
-        <!-- KONTAK PENGURUS ROHIS ACTIVE -->
+        <!-- KONTAK PENGURUS -->
         <div class="panel-box" style="margin-bottom: 20px;">
             <h4><i class="fa-solid fa-id-card"></i> Kontak Pengurus Aktif via WhatsApp</h4>
             <div class="table-container">
@@ -722,6 +751,30 @@
     <footer>
         <p>&copy; 2026 ROHIS SMK YATPI Godong. Fastabiqul Khairat - Khoir, Khoir, Khoir!</p>
     </footer>
+
+    <!-- WIDGET ELEMEN STRUKTUR KHUSUS UNTUK PRINT (TERSEMBUNYI DI LAYAR normal) -->
+    <div id="print-only-area">
+        <div class="p-header">
+            <h2>ROHIS SMK YATPI GODONG</h2>
+            <p style="margin: 5px 0 0 0; font-size: 12px;">Data Log Jurnal Yaumi Siswa</p>
+        </div>
+        <table class="p-table">
+            <thead>
+                <tr>
+                    <th>Waktu</th>
+                    <th>Nama Siswa</th>
+                    <th>Berjamaah</th>
+                    <th>Infaq</th>
+                    <th>Dhuha/Tahajud</th>
+                    <th>Al-Qur'an</th>
+                </tr>
+            </thead>
+            <tbody id="printTableBody"></tbody>
+        </table>
+        <div class="p-footer">
+            <p>&copy; 2026 ROHIS SMK YATPI Godong. Dicetak secara digital via Mobile Edition.</p>
+        </div>
+    </div>
 
     <!-- INTERACTIVE JAVASCRIPT SYSTEM ENGINE -->
     <script>
@@ -884,6 +937,34 @@
         }
 
         loadAmalanLogs();
+
+        // IMPLEMENTASI AMAN: MENGGUNAKAN CSS MEDIA PRINT KHUSUS UNTUK HP & ACODE
+        function printLatestLog() {
+            const dataStorage = JSON.parse(localStorage.getItem('rohis_ultimate_db')) || [];
+            
+            if (dataStorage.length === 0) {
+                alert("Belum ada data jurnal yang dimasukkan siswa!");
+                return;
+            }
+
+            const latestItem = dataStorage[dataStorage.length - 1];
+            const printTableBody = document.getElementById('printTableBody');
+            
+            // Masukkan data ter-update ke area print tersembunyi
+            printTableBody.innerHTML = `
+                <tr>
+                    <td><b>${latestItem.timestamp}</b></td>
+                    <td><b>${latestItem.nama}</b></td>
+                    <td><span class="${latestItem.berjamaah ? 'p-yes' : 'p-no'}">${latestItem.berjamaah ? '✔ Ya' : '❌ Tidak'}</span></td>
+                    <td><span class="${latestItem.infaq ? 'p-yes' : 'p-no'}">${latestItem.infaq ? '✔ Ya' : '❌ Tidak'}</span></td>
+                    <td><span class="${latestItem.sunnah ? 'p-yes' : 'p-no'}">${latestItem.sunnah ? '✔ Ya' : '❌ Tidak'}</span></td>
+                    <td><span class="${latestItem.quran ? 'p-yes' : 'p-no'}">${latestItem.quran ? '✔ Ya' : '❌ Tidak'}</span></td>
+                </tr>
+            `;
+            
+            // Panggil fungsi cetak asli sistem Android tanpa membuka window tab baru javascript
+            window.print();
+        }
     </script>
 </body>
 </html>
