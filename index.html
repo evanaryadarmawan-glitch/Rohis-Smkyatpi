@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ROHIS SMK YATPI Godong - Responsive Fixed Edition</title>
+    <!-- Font Awesome Icons & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Amiri:ital@1&display=swap" rel="stylesheet">
+    
+    <style>
+        /* DESIGN SYSTEM CONFIGURATION */
+        :root {
+            --primary: #0D5C3A;
+            --primary-dark: #073B24;
+            --accent: #D4AF37;
+            --accent-light: #F3E5AB;
+            --bg-site: #f4f7f5;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --border: rgba(13, 92, 58, 0.08);
+            --shadow: 0 10px 30px rgba(7, 59, 36, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-site: #080f0c;
+            --card-bg: #111d16;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.06);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-site);
+            color: var(--text-main);
+            transition: var(--transition);
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* RUNNING TEXT FIXED FOR MOBILE */
+        .marquee-slogan {
+            background: var(--accent);
+            color: var(--primary-dark);
+            font-weight: 800;
+            font-size: 11px;
+            padding: 8px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            display: block;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* NAVIGATION BAR */
+        header {
+            background: rgba(7, 59, 36, 0.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 3px solid var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 12px 16px;
+            width: 100%;
+        }
+
+        .nav-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            transform: rotate(45deg);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .brand-logo i {
+            transform: rotate(-45deg);
+            color: var(--primary-dark);
+            font-size: 16px;
+        }
+
+        .brand-info h1 {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .brand-info p {
+            color: var(--accent);
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #ffffff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* HERO PANEL */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            padding: 40px 16px 70px 16px;
+            text-align: center;
+            color: #ffffff;
+            width: 100%;
+        }
+
+        .hero h2 {
+            font-size: 22px;
+            font-weight: 800;
+            max-width: 800px;
+            margin: 0 auto 12px auto;
+            line-height: 1.3;
+        }
+
+        .hero h2 span { color: var(--accent); }
+        
+        .hero p {
+            font-size: 13px;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* LIVE PRAYER API WIDGET */
+        .prayer-section {
+            max-width: 1200px;
+            margin: -35px auto 0 auto;
+            padding: 0 16px;
+            position: relative;
+            z-index: 100;
+            width: 100%;
+        }
+
+        .prayer-container {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .prayer-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-bottom: 2px solid var(--bg-site);
+            padding-bottom: 10px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .prayer-header h4 {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 14px;
+        }
+
+        .prayer-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .prayer-card {
+            background: var(--bg-site);
+            padding: 8px 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .prayer-card h5 {
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .prayer-card p {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* WIDGET ROW */
+        .widget-row {
+            max-width: 1200px;
+            margin: 20px auto 0 auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .widget-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+            width: 100%;
+        }
+
+        .widget-display-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+            margin-bottom: 12px;
+        }
+
+        .arabic {
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: bold;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        .widget-btn {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            align-self: center;
+            margin-top: auto;
+        }
+
+        .widget-btn:hover { background: var(--primary); color: white; }
+
+        /* CONTAINER GENERAL */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 16px;
+            width: 100%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .section-heading h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* DOKUMENTASI KEGIATAN */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .activity-card {
+            background: var(--card-bg);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .activity-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .activity-body { padding: 16px; }
+        .activity-body h4 { font-size: 16px; margin-bottom: 6px; color: var(--text-main); }
+        .activity-body p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+        .activity-tag {
+            background: rgba(13, 92, 58, 0.1);
+            color: var(--primary);
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+
+        /* GRID INTERAKTIF MULTI PANEL */
+        .interactive-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        .panel-box {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .panel-box h4 {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group { margin-bottom: 12px; width: 100%; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 4px; color: var(--text-muted); text-transform: uppercase;}
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-site); color: var(--text-main); font-size: 13px;
+        }
+
+        .check-item {
+            display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--bg-site); font-size: 13px;
+        }
+        .check-item input { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; flex-shrink: 0; }
+
+        .btn-action {
+            width: 100%; background: var(--primary); color: white; padding: 10px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: var(--transition); font-size: 13px;
+        }
+        .btn-action:hover { background: var(--primary-dark); }
+        .btn-secondary { background: #475569; color: white; padding: 6px 12px; border-radius: 6px; font-size: 11px; font-weight: 700; border: none; cursor: pointer; }
+
+        /* LOG TABLE & SYSTEM */
+        .table-container { 
+            overflow-x: auto; 
+            margin-top: 8px;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+        .log-table { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; min-width: 550px; }
+        .log-table th, .log-table td { padding: 10px; border-bottom: 1px solid var(--border); }
+        .log-table th { background: var(--bg-site); color: var(--primary); font-weight: 700; }
+
+        .badge-yes { background: #d1fae5; color: #065f46; padding: 2px 6px; border-radius: 20px; font-weight: 700; font-size: 10px; white-space: nowrap; }
+        .badge-no { background: #fee2e2; color: #991b1b; padding: 2px 6px; border-radius: 20px; font-weight: 700; font-size: 10px; white-space: nowrap; }
+
+        .btn-wa { background: #25D366; color: white; padding: 4px 10px; border-radius: 6px; text-decoration: none; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+
+        /* SLOGAN BANNER */
+        .slogan-banner {
+            background: linear-gradient(rgba(7,59,36,0.93), rgba(7,59,36,0.93)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800');
+            background-size: cover; color: white; text-align: center; padding: 36px 16px; border-radius: 16px; border: 2px solid var(--accent); margin-top: 20px; width: 100%;
+        }
+        .slogan-banner h3 { font-size: 11px; letter-spacing: 1px; color: var(--accent); }
+        .slogan-banner h2 { font-size: 22px; font-weight: 800; font-style: italic; margin-top: 8px; line-height: 1.3; }
+
+        footer { background: var(--primary-dark); color: #94a3b8; text-align: center; padding: 20px 16px; font-size: 11px; border-top: 4px solid var(--accent); width: 100%; }
+
+        /* ==========================================================================
+           RESPONSIVE MEDIA QUERIES (ADAPTASI TABLET & PC)
+           ========================================================================== */
+        @media (min-width: 650px) {
+            .prayer-header { flex-direction: row; justify-content: space-between; text-align: left; }
+            .prayer-card { padding: 12px 10px; }
+            .prayer-card h5 { font-size: 12px; }
+            .prayer-card p { font-size: 16px; }
+            .widget-row { grid-template-columns: repeat(2, 1fr); }
+            .activity-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 950px) {
+            .marquee-slogan { font-size: 12px; padding: 10px 0; letter-spacing: 2px; }
+            header { padding: 15px 20px; }
+            .brand-logo { width: 42px; height: 42px; }
+            .brand-logo i { font-size: 18px; }
+            .brand-info h1 { font-size: 17px; }
+            .brand-info p { font-size: 10px; }
+            
+            .hero { padding: 70px 20px 100px 20px; }
+            .hero h2 { font-size: 34px; }
+            .hero p { font-size: 15px; }
+            
+            .prayer-section { margin-top: -45px; }
+            .prayer-container { padding: 22px; }
+            .prayer-grid { gap: 12px; }
+            
+            .widget-row { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .widget-card { padding: 24px; min-height: 220px; }
+            .arabic { font-size: 24px; }
+            
+            .container { margin: 40px auto; }
+            .section-heading h3 { font-size: 26px; }
+            
+            .activity-grid { grid-template-columns: repeat(3, 1fr); gap: 25px; }
+            .activity-img { height: 180px; }
+            
+            /* Form Mutabaah & Log berdampingan di PC */
+            .interactive-grid.core-layout { grid-template-columns: 4fr 8fr; gap: 24px; }
+            /* Panel Bawah dibagi 3 kolom di PC */
+            .interactive-grid.utility-layout { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            
+            .panel-box { padding: 26px; }
+            .log-table { font-size: 13px; }
+            .slogan-banner { padding: 45px 20px; }
+            .slogan-banner h2 { font-size: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- RUNNING TEXT SLOGAN -->
+    <div class="marquee-slogan">
+        <div class="marquee-content">
+            ✦ Fastabiqul Khairat! Khoir, Khoir, Khoir! ✦ ROHIS SMK YATPI Godong Berakhlak Mulia ✦ Fastabiqul Khairat! Khoir, Khoir, Khoir! ✦ ROHIS SMK YATPI Godong Berakhlak Mulia ✦&nbsp;
+        </div>
+    </div>
+
+    <!-- HEADER NAVIGATION -->
+    <header>
+        <div class="nav-wrapper">
+            <div class="brand">
+    <!-- Menggunakan logo.jpg buatanmu sendiri -->
+    <img src="logo.jpg" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); flex-shrink: 0;" alt="Logo ROHIS">
+    <div class="brand-info" style="margin-left: 10px;">
+        <h1>ROHIS SMK YATPI</h1>
+        <p>GODONG - JAWA TENGAH</p>
+    </div>
+</div>
+            <button class="theme-toggle" onclick="toggleVisionMode()"><i class="fa-solid fa-moon" id="v-icon"></i></button>
+        </div>
+    </header>
+
+    <!-- HERO PANEL -->
+    <section class="hero">
+        <h2>Membangun Generasi Madani Menuju <span>Fastabiqul Khairat</span></h2>
+        <p>Ekosistem Digital Kerohanian Islam Terpadu: Mutabaah Real-Time, Edukasi, & Syiar Syariat Islami.</p>
+    </section>
+
+    <!-- LIVE JADWAL SHALAT AUTOMATION WIDGET -->
+    <div class="prayer-section">
+        <div class="prayer-container">
+            <div class="prayer-header">
+                <h4><i class="fa-solid fa-clock"></i> Waktu Shalat Real-Time (Jawa Tengah)</h4>
+                <span style="font-size: 11px; color: var(--text-muted); font-weight: 700;" id="live-date">Sinkronisasi...</span>
+            </div>
+            <div class="prayer-grid">
+                <div class="prayer-card"><h5>Subuh</h5><p id="shubuh">--:--</p></div>
+                <div class="prayer-card"><h5>Dzuhur</h5><p id="dzuhur">--:--</p></div>
+                <div class="prayer-card"><h5>Ashar</h5><p id="ashar">--:--</p></div>
+                <div class="prayer-card"><h5>Maghrib</h5><p id="maghrib">--:--</p></div>
+                <div class="prayer-card"><h5>Isya</h5><p id="isya">--:--</p></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UTILITY KARTU UTAMA -->
+    <div class="widget-row">
+        <div class="widget-card">
+            <div class="widget-display-area" id="box-quote">
+                <div class="arabic">إِنَّ مَعَ الْعُسْرِ يُسْرًا</div>
+                <p style="font-size: 13px; font-weight: 600;">"Sesungguhnya sesudah kesulitan itu ada kemudahan."</p>
+                <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">(QS. Al-Insyirah: 6)</span>
+            </div>
+            <button class="widget-btn" onclick="nextQuote()"><i class="fa-solid fa-rotate"></i> Acak Ayat</button>
+        </div>
+
+        <div class="widget-card">
+            <div class="widget-display-area">
+                <span style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; margin-bottom: 8px; display: block;">Asmaul Husna Hari Ini</span>
+                <div id="box-asmaul">
+                    <div class="arabic">الرَّحْمَنُ</div>
+                    <p style="font-size: 15px; font-weight: 700; color: var(--accent);">Ar-Rahman</p>
+                    <p style="font-size: 12px; color: var(--text-muted);">Yang Maha Pengasih</p>
+                </div>
+            </div>
+            <button class="widget-btn" onclick="nextAsmaul()"><i class="fa-solid fa-heart"></i> Zikir Berikutnya</button>
+        </div>
+
+        <div class="widget-card">
+            <div class="widget-display-area">
+                <span style="font-size: 11px; font-weight: 700; color: var(--primary); text-transform: uppercase; display: block; margin-bottom: 5px;">Digital Tasbih Counter</span>
+                <h3 style="font-size: 32px; font-weight: 800; color: var(--accent); margin: 2px 0;" id="tasbih-num">0</h3>
+                <p style="font-size: 12px; color: var(--text-muted);">Mari basahi lidah dengan berzikir hari ini.</p>
+            </div>
+            <div style="display:flex; justify-content:center; gap:8px; margin-top: auto;">
+                <button class="btn-secondary" style="background:var(--primary);" onclick="countTasbih()">Hitung Zikir</button>
+                <button class="btn-secondary" style="background:#dc2626;" onclick="resetTasbih()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEKSI DOKUMENTASI KEGIATAN -->
+    <section class="container">
+        <div class="section-heading">
+            <h3>Dokumentasi & Agenda Utama Syiar</h3>
+        </div>
+        <div class="activity-grid">
+            <div class="activity-card">
+                <img src="foto1.jpg" class="activity-img" alt="Istighosah">
+                <div class="activity-body">
+                    <span class="activity-tag">Rutin Jumat Wage</span>
+                    <h4>Istighosah Akbar & Doa Tolak Bala</h4>
+                    <p>Majelis munajat spiritual bulanan yang diikuti oleh seluruh guru, karyawan, dan siswa demi keselamatan dunia dan akhirat.</p>
+                </div>
+            </div>
+            <div class="activity-card">
+                <img src="foto2.jpg" class="activity-img" alt="Hari Santri">
+                <div class="activity-body">
+                    <span class="activity-tag">Tahunan</span>
+                    <h4>Gema Resolusi Jihad Hari Santri</h4>
+                    <p>Penyelenggaraan pawai obor religi, upacara sakral adat sarungan, serta perlombaan baca kitab kuning antar kelas.</p>
+                </div>
+            </div>
+            <div class="activity-card">
+                <img src="foto3.jpg" class="activity-img" alt="Kajian Fiqih">
+                <div class="activity-body">
+                    <span class="activity-tag">Mingguan</span>
+                    <h4>Kajian Fiqih Kontemporer Remaja</h4>
+                    <p>Pembahasan kritis interaktif mengenai etika bermedia sosial, tata cara ibadah yang valid, dan pembentukan moralitas.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CORE INTERACTIVE ENGINE WRAPPER -->
+        <div class="interactive-grid core-layout">
+            <!-- INPUT JURNAL YAUMI -->
+            <div class="panel-box">
+                <h4><i class="fa-solid fa-calendar-check"></i> Pengisian Jurnal Yaumi</h4>
+                <form id="mutabaahForm" onsubmit="saveAmalanTrack(event)">
+                    <div class="form-group">
+                        <label>Nama Lengkap Siswa</label>
+                        <input type="text" id="namaSiswa" placeholder="Ketik nama lengkap Anda..." required>
+                    </div>
+                    <div class="check-item"><input type="checkbox" id="berjamaah"> <label for="berjamaah">Shalat Berjamaah 5 Waktu</label></div>
+                    <div class="check-item"><input type="checkbox" id="infaq"> <label for="infaq">Infaq / Sedekah Sukarela</label></div>
+                    <div class="check-item"><input type="checkbox" id="sunnah"> <label for="sunnah">Shalat Sunnah Dhuha / Tahajud</label></div>
+                    <div class="check-item"><input type="checkbox" id="quran"> <label for="quran">Membaca Al-Qur'an & Tadarus</label></div>
+                    <button type="submit" class="btn-action"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Data Jurnal</button>
+                </form>
+            </div>
+
+            <!-- LOG DATABASE AMALAN -->
+            <div class="panel-box">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap:8px; flex-wrap: wrap;">
+                    <h4 style="margin: 0;"><i class="fa-solid fa-server"></i> Log Database</h4>
+                    <div style="display: flex; gap: 6px;">
+                        <button class="btn-secondary" style="background:#dc2626;" onclick="clearAllLogs()"><i class="fa-solid fa-trash-can"></i> Hapus Semua</button>
+                        <button class="btn-secondary" onclick="window.print()"><i class="fa-solid fa-print"></i> PDF</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Nama Siswa</th>
+                                <th>Berjamaah</th>
+                                <th>Infaq</th>
+                                <th>Dhuha/Tahajud</th>
+                                <th>Al-Qur'an</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MULTI UTILITY: CELENGAN INFAQ + KALKULATOR ZAKAT + KOTAK ASPIRASI -->
+        <div class="interactive-grid utility-layout">
+            <div class="panel-box">
+                <h4><i class="fa-solid fa-wallet"></i> Celengan Infaq Digital</h4>
+                <div class="form-group">
+                    <label>Uang Saku Anda (Rp)</label>
+                    <input type="number" id="sakuVal" value="15000" oninput="runCalcInfaq()">
+                </div>
+                <div style="background: var(--bg-site); padding: 12px; border-radius: 8px; text-align: center; margin-top: 10px;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">ANJURAN PORSI INFAQ (2.5%)</span>
+                    <h5 style="font-size: 20px; color: var(--accent); font-weight: 800;" id="sakuResult">Rp 375</h5>
+                </div>
+            </div>
+
+            <div class="panel-box">
+                <h4><i class="fa-solid fa-calculator"></i> Kalkulator Zakat Maal</h4>
+                <div class="form-group">
+                    <label>Total Harta Simpanan (1 Tahun)</label>
+                    <input type="number" id="zakatVal" value="1000000" oninput="runCalcZakat()">
+                </div>
+                <div style="background: var(--bg-site); padding: 12px; border-radius: 8px; text-align: center; margin-top: 10px;">
+                    <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">WAJIB ZAKAT MAL (2.5%)</span>
+                    <h5 style="font-size: 20px; color: #065f46; font-weight: 800;" id="zakatResult">Rp 25.000</h5>
+                </div>
+            </div>
+
+            <div class="panel-box">
+                <h4><i class="fa-solid fa-box-archive"></i> Kotak Aspirasi (Anonim)</h4>
+                <form onsubmit="handleSuggestion(event)">
+                    <div class="form-group">
+                        <input type="text" id="kategoriIdea" placeholder="Kategori Masukan..." required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="textIdea" rows="2" placeholder="Tuliskan saran konstruktif Anda..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-action" style="margin-top:0;"><i class="fa-solid fa-paper-plane"></i> Kirim</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- KONTAK PENGURUS ROHIS ACTIVE -->
+        <div class="panel-box" style="margin-bottom: 20px;">
+            <h4><i class="fa-solid fa-id-card"></i> Kontak Pengurus Aktif via WhatsApp</h4>
+            <div class="table-container">
+                <table style="width: 100%; border-collapse: collapse; font-size: 12px; min-width: 400px;">
+                    <thead>
+                        <tr style="background: var(--bg-site); text-align: left;">
+                            <th style="padding:10px;">Nama Lengkap</th>
+                            <th style="padding:10px;">Amanah Jabatan</th>
+                            <th style="padding:10px;">Aksi Hubungi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:10px;"><b>Ely Tri Rahayuningsih</b></td>
+                            <td style="padding:10px;">Lurah Rohis</td>
+                            <td style="padding:10px;"><a href="https://wa.me/62895322090541" class="btn-wa" target="_blank"><i class="fa-brands fa-whatsapp"></i> Chat WA</a></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10px;"><b>Dwi Oktavianai</b></td>
+                            <td style="padding:10px;">Ketua 2</td>
+                            <td style="padding:10px;"><a href="https://wa.me/6289621412600" class="btn-wa" target="_blank"><i class="fa-brands fa-whatsapp"></i> Chat WA</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- BANNER SLOGAN UTAMA -->
+        <div class="slogan-banner">
+            <h3>YEL-YEL SEMANGAT PERJUANGAN</h3>
+            <h2>"Fastabiqul Khairat! <br>Khoir, Khoir, Khoir!"</h2>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 ROHIS SMK YATPI Godong. Fastabiqul Khairat - Khoir, Khoir, Khoir!</p>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT SYSTEM ENGINE -->
+    <script>
+        const listAyat = [
+            { ar: "إِنَّ مَعَ الْعُسْرِ يُسْرًا", id: '"Sesungguhnya sesudah kesulitan itu ada kemudahan."', ref: "(QS. Al-Insyirah: 6)" },
+            { ar: "وَتَوَكَّلْ عَلَى اللَّهِ", id: '"Dan bertawakallah kepada Allah (karena Dia sebaik-baik pelindung)."', ref: "(QS. Al-Ahzab: 3)" },
+            { ar: "فَاسْتَبِقُوا الْخَيْرَاتِ", id: '"Maka berlomba-lombalah kamu dalam kebaikan."', ref: "(QS. Al-Baqarah: 148)" },
+            { ar: "إِنَّ اللَّهَ مَعَ الصَّابِرِينَ", id: '"Sesungguhnya Allah bersama orang-orang yang sabar."', ref: "(QS. Al-Baqarah: 153)" },
+            { ar: "وَقُلْ رَبِّ زِدْنِي عِلْمًا", id: '"Dan katakanlah, Ya Tuhanku, tambahkanlah ilmu kepadaku."', ref: "(QS. Thaha: 114)" },
+            { ar: "ادْعُونِي أَسْتَجِبْ لَكُمْ", id: '"Berdoalah kepada-Ku, niscaya akan Aku perkenankan bagimu."', ref: "(QS. Ghafir: 60)" },
+            { ar: "إِنَّ اللَّهَ لَا يُخْلِفُ الْمِيعَادَ", id: '"Sesungguhnya Allah tidak menyalahi janji."', ref: "(QS. Ali 'Imran: 9)" }
+        ];
+
+        const listAsmaul = [
+            { ar: "الرَّحْمَنُ", id: "Ar-Rahman", arti: "Yang Maha Pengasih" },
+            { ar: "الرَّحِيمُ", id: "Ar-Rahim", arti: "Yang Maha Penyayang" },
+            { ar: "الْمَلِكُ", id: "Al-Malik", arti: "Yang Maha Merajai" },
+            { ar: "الْقُدُّوسُ", id: "Al-Quddus", arti: "Yang Maha Suci" },
+            { ar: "السَّلَامُ", id: "As-Salam", arti: "Yang Maha Memberi Kesejahteraan" },
+            { ar: "الْمُؤْمِنُ", id: "Al-Mu'min", arti: "Yang Maha Memberi Keamanan" },
+            { ar: "الْمُهَيْمِنُ", id: "Al-Muhaimin", arti: "Yang Maha Mengendali / Memelihara" },
+            { ar: "الْعَزِيزُ", id: "Al-Aziz", arti: "Yang Maha Perkasa" },
+            { ar: "الْجَبَّارُ", id: "Al-Jabbar", arti: "Yang Memiliki Mutlak Kegagahan" },
+            { ar: "الْمُتَكَبِّرُ", id: "Al-Mutakabbir", arti: "Yang Memiliki Kebesaran" }
+        ];
+
+        let lastAyatIdx = 0;
+        function nextQuote() {
+            let rng = Math.floor(Math.random() * listAyat.length);
+            while(rng === lastAyatIdx && listAyat.length > 1) { rng = Math.floor(Math.random() * listAyat.length); }
+            lastAyatIdx = rng;
+            const data = listAyat[rng];
+            document.getElementById('box-quote').innerHTML = `<div class="arabic">${data.ar}</div><p style="font-size:13px; font-weight:600;">${data.id}</p><span style="font-size:11px; color:var(--text-muted); margin-top:4px;">${data.ref}</span>`;
+        }
+
+        let lastAsmaulIdx = 0;
+        function nextAsmaul() {
+            let rng = Math.floor(Math.random() * listAsmaul.length);
+            while(rng === lastAsmaulIdx && listAsmaul.length > 1) { rng = Math.floor(Math.random() * listAsmaul.length); }
+            lastAsmaulIdx = rng;
+            const data = listAsmaul[rng];
+            document.getElementById('box-asmaul').innerHTML = `<div class="arabic">${data.ar}</div><p style="font-size:15px; font-weight:700; color:var(--accent);">${data.id}</p><p style="font-size:12px; color:var(--text-muted);">${data.arti}</p>`;
+        }
+
+        let count = 0;
+        function countTasbih() { count++; document.getElementById('tasbih-num').innerText = count; }
+        function resetTasbih() { count = 0; document.getElementById('tasbih-num').innerText = count; }
+
+        async function sinkronisasiWaktuShalat() {
+            try {
+                const res = await fetch('https://api.aladhan.com/v1/timingsByCity?city=Semarang&country=Indonesia&method=2');
+                const result = await res.json();
+                const t = result.data.timings;
+
+                document.getElementById('shubuh').innerText = t.Fajr;
+                document.getElementById('dzuhur').innerText = t.Dhuhr;
+                document.getElementById('ashar').innerText = t.Asr;
+                document.getElementById('maghrib').innerText = t.Maghrib;
+                document.getElementById('isya').innerText = t.Isha;
+                document.getElementById('live-date').innerText = result.data.date.readable;
+            } catch (err) {
+                document.getElementById('shubuh').innerText = "04:26";
+                document.getElementById('dzuhur').innerText = "11:43";
+                document.getElementById('ashar').innerText = "14:59";
+                document.getElementById('maghrib').innerText = "17:39";
+                document.getElementById('isya').innerText = "18:53";
+                document.getElementById('live-date').innerText = "Mode Offline";
+            }
+        }
+        sinkronisasiWaktuShalat();
+
+        function loadAmalanLogs() {
+            const dataStorage = JSON.parse(localStorage.getItem('rohis_ultimate_db')) || [];
+            const containerBody = document.getElementById('logTableBody');
+            containerBody.innerHTML = '';
+
+            if (dataStorage.length === 0) {
+                containerBody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--text-muted); padding: 15px;">Belum ada data jurnal yang dimasukkan siswa.</td></tr>`;
+                return;
+            }
+
+            dataStorage.slice().reverse().forEach((item, index) => {
+                const actualIndex = dataStorage.length - 1 - index;
+                containerBody.innerHTML += `
+                    <tr>
+                        <td style="color:var(--primary); font-weight:700;">${item.timestamp}</td>
+                        <td><b>${item.nama}</b></td>
+                        <td>${item.berjamaah ? '<span class="badge-yes">✔ Ya</span>' : '<span class="badge-no">❌ Tidak</span>'}</td>
+                        <td>${item.infaq ? '<span class="badge-yes">✔ Ya</span>' : '<span class="badge-no">❌ Tidak</span>'}</td>
+                        <td>${item.sunnah ? '<span class="badge-yes">✔ Ya</span>' : '<span class="badge-no">❌ Tidak</span>'}</td>
+                        <td>${item.quran ? '<span class="badge-yes">✔ Ya</span>' : '<span class="badge-no">❌ Tidak</span>'}</td>
+                        <td>
+                            <button class="btn-secondary" style="background:#dc2626; padding: 4px 8px; font-size:11px;" onclick="deleteSingleLog(${actualIndex})">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function deleteSingleLog(index) {
+            if (confirm("Apakah Anda yakin ingin menghapus data jurnal baris ini?")) {
+                let databaseSekarang = JSON.parse(localStorage.getItem('rohis_ultimate_db')) || [];
+                databaseSekarang.splice(index, 1);
+                localStorage.setItem('rohis_ultimate_db', JSON.stringify(databaseSekarang));
+                loadAmalanLogs();
+            }
+        }
+
+        function clearAllLogs() {
+            if (confirm("Apakah Anda yakin ingin menghapus SELURUH data jurnal?")) {
+                localStorage.removeItem('rohis_ultimate_db');
+                loadAmalanLogs();
+            }
+        }
+
+        function saveAmalanTrack(e) {
+            e.preventDefault();
+            const nama = document.getElementById('namaSiswa').value;
+            const b = document.getElementById('berjamaah').checked;
+            const i = document.getElementById('infaq').checked;
+            const s = document.getElementById('sunnah').checked;
+            const q = document.getElementById('quran').checked;
+
+            const waktuSkrg = new Date();
+            const opsiFormat = { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' };
+            const stampWaktuFormatted = waktuSkrg.toLocaleDateString('id-ID', opsiFormat);
+
+            const databaseSekarang = JSON.parse(localStorage.getItem('rohis_ultimate_db')) || [];
+            databaseSekarang.push({ timestamp: stampWaktuFormatted, nama: nama, berjamaah: b, infaq: i, sunnah: s, quran: q });
+
+            localStorage.setItem('rohis_ultimate_db', JSON.stringify(databaseSekarang));
+            alert("Alhamdulillah, data jurnal milik " + nama + " berhasil di-upload.");
+            document.getElementById('mutabaahForm').reset();
+            loadAmalanLogs();
+        }
+
+        function runCalcInfaq() {
+            const uang = document.getElementById('sakuVal').value;
+            document.getElementById('sakuResult').innerText = "Rp " + Math.round(uang * 0.025).toLocaleString('id-ID');
+        }
+        function runCalcZakat() {
+            const harta = document.getElementById('zakatVal').value;
+            document.getElementById('zakatResult').innerText = "Rp " + Math.round(harta * 0.025).toLocaleString('id-ID');
+        }
+
+        function handleSuggestion(e) {
+            e.preventDefault();
+            alert("Aspirasi berhasil dikirim secara anonim demi kebaikan pengurus ROHIS!");
+            document.getElementById('kategoriIdea').value = ""; document.getElementById('textIdea').value = "";
+        }
+
+        function toggleVisionMode() {
+            const root = document.documentElement;
+            const current = root.getAttribute("data-theme");
+            const target = current === "dark" ? "light" : "dark";
+            root.setAttribute("data-theme", target);
+            document.getElementById("v-icon").className = target === "dark" ? "fa-solid fa-sun" : "fa-solid fa-moon";
+        }
+
+        loadAmalanLogs();
+    </script>
+</body>
+</html>
