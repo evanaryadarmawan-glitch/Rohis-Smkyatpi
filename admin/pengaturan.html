@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan — Admin ROHIS</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="../assets/img/logo.jpg">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+    <div class="admin-sidebar-overlay" id="adminOverlay" onclick="closeAdminSidebar()"></div>
+    <div class="admin-shell">
+        <aside class="admin-sidebar" id="adminSidebar">
+            <div class="brand"><img src="../assets/img/logo.jpg" alt="Logo"><div class="brand-info"><h1>Admin ROHIS</h1><p style="color:#8fae9c;">YATPI GODONG</p></div></div>
+            <nav class="admin-nav">
+                <a href="dashboard.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+                <a href="kegiatan.html"><i class="fa-solid fa-images"></i> Kegiatan</a>
+                <a href="pengurus.html"><i class="fa-solid fa-users"></i> Pengurus</a>
+                <a href="jurnal.html"><i class="fa-solid fa-calendar-check"></i> Jurnal Yaumi</a>
+                <a href="aspirasi.html"><i class="fa-solid fa-box-archive"></i> Kotak Aspirasi</a>
+                <div class="divider"></div>
+                <a href="pengaturan.html" class="active"><i class="fa-solid fa-gear"></i> Pengaturan</a>
+                <a href="../index.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> Lihat Situs</a>
+                <a href="#" onclick="adminLogout()"><i class="fa-solid fa-right-from-bracket"></i> Keluar</a>
+            </nav>
+        </aside>
+
+        <main class="admin-main">
+            <div class="admin-topbar">
+                <button class="admin-menu-btn" onclick="toggleAdminSidebar()"><i class="fa-solid fa-bars"></i></button>
+                <h2>Pengaturan</h2>
+                <button class="icon-btn" style="background:var(--primary);" onclick="toggleVisionMode()"><i class="v-icon fa-solid fa-moon"></i></button>
+            </div>
+
+            <div class="interactive-grid core-layout">
+                <div class="panel-box">
+                    <h4><i class="fa-solid fa-key"></i> Ubah Kata Sandi Admin</h4>
+                    <form id="passForm">
+                        <div class="form-group"><label>Kata Sandi Saat Ini</label><input type="password" id="oldPass" required></div>
+                        <div class="form-group"><label>Kata Sandi Baru</label><input type="password" id="newPass" minlength="4" required></div>
+                        <div class="form-group"><label>Ulangi Kata Sandi Baru</label><input type="password" id="confirmPass" minlength="4" required></div>
+                        <button type="submit" class="btn-action"><i class="fa-solid fa-floppy-disk"></i> Simpan Kata Sandi</button>
+                    </form>
+                    <p id="passMsg" style="font-size:12px;font-weight:700;margin-top:10px;"></p>
+                </div>
+
+                <div class="panel-box">
+                    <h4><i class="fa-solid fa-circle-info"></i> Catatan Penting</h4>
+                    <p style="font-size:13px;color:var(--text-muted);line-height:1.8;">
+                        Situs ini adalah situs statis tanpa server/database sendiri. Seluruh data (kegiatan, pengurus, jurnal, aspirasi, kata sandi admin) tersimpan di <b>localStorage browser</b> perangkat yang digunakan.
+                        <br><br>
+                        Artinya: perubahan yang dibuat di admin panel hanya tampil di browser/perangkat tempat perubahan itu dilakukan, dan bisa hilang jika data browser (cache/riwayat) dibersihkan. Sistem proteksi kata sandi ini juga bersifat sederhana (client-side), bukan otentikasi tingkat server.
+                        <br><br>
+                        Untuk kebutuhan multi-pengguna dan data terpusat yang lebih andal, situs ini dapat dikembangkan lebih lanjut dengan backend/database (misalnya Firebase atau layanan sejenis).
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/admin.js"></script>
+    <script>
+        document.getElementById('passForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const oldPass = document.getElementById('oldPass').value;
+            const newPass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+            const msg = document.getElementById('passMsg');
+
+            if (!ROHIS.auth.checkPassword(oldPass)) {
+                msg.style.color = '#991b1b'; msg.innerText = 'Kata sandi saat ini salah.'; return;
+            }
+            if (newPass !== confirmPass) {
+                msg.style.color = '#991b1b'; msg.innerText = 'Konfirmasi kata sandi baru tidak cocok.'; return;
+            }
+            ROHIS.auth.setPassword(newPass);
+            msg.style.color = '#065f46'; msg.innerText = 'Kata sandi berhasil diperbarui.';
+            this.reset();
+        });
+    </script>
+</body>
+</html>
