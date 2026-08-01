@@ -44,8 +44,10 @@
                         <div class="form-group"><label>Judul Kegiatan</label><input type="text" id="fTitle" placeholder="Judul kegiatan..." required></div>
                         <div class="form-group"><label>Deskripsi</label><textarea id="fDesc" rows="3" placeholder="Deskripsi singkat kegiatan..." required></textarea></div>
                         <div class="form-group">
-                            <label>Path / URL Gambar</label>
-                            <input type="text" id="fImg" placeholder="assets/img/foto1.jpg atau https://..." required>
+                            <label>Foto Kegiatan</label>
+                            <input type="file" id="fImgFile" accept="image/*" onchange="handleImgUpload(event)">
+                            <input type="hidden" id="fImg" required>
+                            <img id="imgPreview" style="display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px;margin-top:8px;">
                         </div>
                         <button type="submit" class="btn-action"><i class="fa-solid fa-floppy-disk"></i> Simpan Kegiatan</button>
                         <button type="button" class="btn-outline" style="margin-top:8px;display:none;" id="cancelEditBtn" onclick="cancelEdit()">Batal Edit</button>
@@ -84,9 +86,26 @@
             `).join('');
         }
 
+        function handleImgUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                document.getElementById('fImg').value = ev.target.result;
+                const preview = document.getElementById('imgPreview');
+                preview.src = ev.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
         document.getElementById('kegiatanForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const id = document.getElementById('editId').value;
+            if (!document.getElementById('fImg').value) {
+                alert('Silakan pilih foto kegiatan terlebih dahulu.');
+                return;
+            }
             const item = {
                 tag: document.getElementById('fTag').value,
                 title: document.getElementById('fTitle').value,
@@ -95,6 +114,8 @@
             };
             if (id) { ROHIS.updateActivity(id, item); } else { ROHIS.addActivity(item); }
             this.reset();
+            document.getElementById('imgPreview').style.display = 'none';
+            document.getElementById('imgPreview').src = '';
             cancelEdit();
             renderList();
         });
@@ -107,6 +128,9 @@
             document.getElementById('fTitle').value = item.title;
             document.getElementById('fDesc').value = item.desc;
             document.getElementById('fImg').value = item.img;
+            const preview = document.getElementById('imgPreview');
+            preview.src = item.img;
+            preview.style.display = 'block';
             document.getElementById('formTitle').innerHTML = '<i class="fa-solid fa-pen"></i> Edit Kegiatan';
             document.getElementById('cancelEditBtn').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
